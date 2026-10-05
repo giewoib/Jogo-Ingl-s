@@ -1,0 +1,13 @@
+/* STYLE.CSS */
+body {
+  font-family: 'Nunito', sans-serif;
+  background: linear-gradient(135deg, #f3e8ff, #e0f2fe, #fce7f3);
+}
+.btn-pink { background-color: #FF7096; color: white; }
+.btn-purple { background-color: #9370DB; color: white; }
+.btn-blue { background-color: #4A90E2; color: white; }
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border-radius: 1.5rem;
+}
