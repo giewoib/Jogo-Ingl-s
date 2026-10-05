@@ -1,4 +1,1072 @@
-<!-- INDEX.HTML -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>English Adventure 🌎 | 6º Ano Ensino Fundamental</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            pastelPink: '#FFD1DC',
+            pastelBlue: '#AEC6CF',
+            pastelPurple: '#C3B1E1',
+            pastelYellow: '#FDFD96',
+            pastelGreen: '#77DD77',
+            pastelPeach: '#FFD8B1',
+            brandPink: '#FF7096',
+            brandPurple: '#9370DB',
+            brandBlue: '#4A90E2',
+            brandYellow: '#F5A623',
+            brandGreen: '#50C878'
+          },
+          fontFamily: {
+            fredoka: ['Fredoka', 'sans-serif'],
+            nunito: ['Nunito', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom Pastel CSS Styles */
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(135deg, #f3e8ff 0%, #e0f2fe 50%, #fce7f3 100%);
+      min-height: 100vh;
+      user-select: none;
+    }
+
+    h1, h2, h3, .font-title {
+      font-family: 'Fredoka', sans-serif;
+    }
+
+    /* Floating Effect */
+    @keyframes float {
+      0% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(1deg); }
+      100% { transform: translateY(0px) rotate(0deg); }
+    }
+    .floating { animation: float 4s ease-in-out infinite; }
+    .floating-slow { animation: float 6s ease-in-out infinite; }
+
+    /* Bounce Animations */
+    @keyframes pulse-subtle {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+    }
+    .pulse-hover:hover { animation: pulse-subtle 0.8s infinite; }
+
+    /* Card Flip Effect */
+    .perspective-1000 { perspective: 1000px; }
+    .transform-style-3d { transform-style: preserve-3d; }
+    .backface-hidden { backface-visibility: hidden; }
+    .rotate-y-180 { transform: rotateY(180deg); }
+
+    /* Custom Glassmorphism */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      border: 3px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 10px 30px -5px rgba(147, 112, 219, 0.15), 0 4px 12px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Custom Buttons */
+    .btn-3d {
+      transition: all 0.15s ease;
+      box-shadow: 0 6px 0 var(--btn-shadow);
+    }
+    .btn-3d:active {
+      transform: translateY(4px);
+      box-shadow: 0 2px 0 var(--btn-shadow);
+    }
+
+    .btn-pink { --btn-shadow: #E05275; background-color: #FF7096; color: white; }
+    .btn-pink:hover { background-color: #FF527B; }
+
+    .btn-purple { --btn-shadow: #7251B5; background-color: #9370DB; color: white; }
+    .btn-purple:hover { background-color: #805AD5; }
+
+    .btn-blue { --btn-shadow: #2B6CB0; background-color: #4A90E2; color: white; }
+    .btn-blue:hover { background-color: #3182CE; }
+
+    .btn-green { --btn-shadow: #2F855A; background-color: #50C878; color: white; }
+    .btn-green:hover { background-color: #38A169; }
+
+    .btn-yellow { --btn-shadow: #D69E2E; background-color: #F6AD55; color: white; }
+    .btn-yellow:hover { background-color: #DD6B20; }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #F1F1F1; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb { background: #C3B1E1; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #9370DB; }
+  </style>
+</head>
+<body class="flex flex-col min-h-screen text-slate-700 overflow-x-hidden">
+
+  <!-- TOP NAV BAR -->
+  <header class="w-full bg-white/80 backdrop-blur-md border-b-4 border-pastelPurple px-4 py-3 sticky top-0 z-40 shadow-sm">
+    <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      
+      <!-- Logo & Title -->
+      <div class="flex items-center gap-3 cursor-pointer" onclick="showScreen('screen-home')">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-brandPurple to-brandPink flex items-center justify-center text-white text-xl font-black shadow-md floating">
+          🌎
+        </div>
+        <div>
+          <h1 class="text-xl md:text-2xl font-black tracking-wide text-brandPurple flex items-center gap-1">
+            ENGLISH <span class="text-brandPink">ADVENTURE</span>
+          </h1>
+          <p class="text-xs font-bold text-slate-400 -mt-1 hidden sm:block">6º Ano • Fun & Learning</p>
+        </div>
+      </div>
+
+      <!-- Game Stats Bar (Visible during gameplay) -->
+      <div id="game-stats" class="hidden flex items-center gap-3 bg-pastelPurple/20 px-4 py-1.5 rounded-full border-2 border-pastelPurple">
+        <!-- Hearts -->
+        <div class="flex items-center gap-1 text-lg" id="hearts-container">
+          <span class="text-red-500 animate-bounce">❤️️</span>
+          <span class="text-red-500 animate-bounce">❤️</span>
+          <span class="text-red-500 animate-bounce">❤️</span>
+        </div>
+        <div class="h-5 w-0.5 bg-pastelPurple/50"></div>
+        <!-- Score -->
+        <div class="flex items-center gap-1.5 font-bold text-brandPurple">
+          <span class="text-amber-400 text-xl">⭐</span>
+          <span id="score-display" class="text-lg">0</span>
+        </div>
+        <div class="h-5 w-0.5 bg-pastelPurple/50"></div>
+        <!-- Hints -->
+        <button id="hint-btn" onclick="useHint()" class="flex items-center gap-1 font-bold text-amber-600 bg-amber-100 hover:bg-amber-200 px-2.5 py-0.5 rounded-full border border-amber-300 text-xs transition active:scale-95">
+          <span>💡</span>
+          <span id="hints-count">3</span>
+        </button>
+      </div>
+
+      <!-- Right Code / View Toggle -->
+      <div class="flex items-center gap-2">
+        <button onclick="toggleCodeViewer()" class="flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-3 py-1.5 rounded-xl border-2 border-slate-300 text-xs transition">
+          <i class="fa-solid fa-code text-brandPurple"></i>
+          <span id="code-btn-text">Ver Código (3 arquivos)</span>
+        </button>
+        <button onclick="showScreen('screen-home')" class="p-2 rounded-xl bg-pastelBlue/30 hover:bg-pastelBlue/50 text-brandBlue transition" title="Home">
+          <i class="fa-solid fa-house text-lg"></i>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- CODE VIEWER MODAL / DRAWER -->
+  <div id="code-viewer-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-3 md:p-6">
+    <div class="bg-slate-900 w-full max-w-5xl h-[85vh] rounded-3xl border-4 border-pastelPurple flex flex-col overflow-hidden shadow-2xl">
+      <!-- Header -->
+      <div class="bg-slate-800 px-6 py-4 flex items-center justify-between border-b border-slate-700">
+        <div class="flex items-center gap-3">
+          <div class="flex gap-1.5">
+            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+            <div class="w-3 h-3 rounded-full bg-amber-500"></div>
+            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+          </div>
+          <span class="text-slate-300 font-bold font-mono text-sm ml-2">english-adventure/</span>
+        </div>
+        <!-- File Tabs -->
+        <div class="flex bg-slate-900 p-1 rounded-xl border border-slate-700 text-xs font-mono">
+          <button onclick="switchTab('html')" id="tab-html" class="px-3 py-1.5 rounded-lg text-amber-400 font-bold bg-slate-800 shadow">index.html</button>
+          <button onclick="switchTab('css')" id="tab-css" class="px-3 py-1.5 rounded-lg text-slate-400 font-bold hover:text-white">style.css</button>
+          <button onclick="switchTab('js')" id="tab-js" class="px-3 py-1.5 rounded-lg text-slate-400 font-bold hover:text-white">script.js</button>
+        </div>
+        <button onclick="toggleCodeViewer()" class="text-slate-400 hover:text-white text-xl font-bold">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Code Textarea Container -->
+      <div class="flex-1 relative bg-slate-950 p-4 font-mono text-xs md:text-sm overflow-auto text-slate-200 leading-relaxed">
+        <pre id="code-content" class="whitespace-pre-wrap font-mono"></pre>
+      </div>
+
+      <!-- Footer Buttons -->
+      <div class="bg-slate-800 px-6 py-3 flex items-center justify-between border-t border-slate-700 text-xs">
+        <span class="text-slate-400" id="current-file-label">Exibindo index.html</span>
+        <button onclick="copyCode()" class="bg-brandPurple hover:bg-purple-600 text-white font-bold px-4 py-2 rounded-xl flex items-center gap-2 transition">
+          <i class="fa-regular fa-copy"></i> Copiar Código
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <main class="flex-1 max-w-5xl w-full mx-auto p-4 flex flex-col justify-center items-center relative">
+
+    <!-- Floating Background Decorative Icons -->
+    <div class="absolute top-10 left-4 text-3xl opacity-20 floating pointer-events-none">☁️</div>
+    <div class="absolute bottom-12 right-6 text-4xl opacity-20 floating-slow pointer-events-none">✨</div>
+    <div class="absolute top-1/3 right-8 text-3xl opacity-20 floating pointer-events-none">🎈</div>
+    <div class="absolute bottom-1/3 left-8 text-3xl opacity-20 floating-slow pointer-events-none">🎒</div>
+
+    <!-- 1. TELA INICIAL (WELCOME SCREEN) -->
+    <section id="screen-home" class="w-full flex flex-col items-center text-center py-6 space-y-6">
+      
+      <!-- Main Title Box -->
+      <div class="glass-card p-6 md:p-10 rounded-3xl w-full max-w-2xl border-4 border-pastelPurple shadow-xl relative overflow-hidden">
+        <div class="absolute -top-10 -right-10 w-32 h-32 bg-pastelPink/50 rounded-full blur-xl pointer-events-none"></div>
+        <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-pastelBlue/50 rounded-full blur-xl pointer-events-none"></div>
+
+        <span class="inline-block px-4 py-1.5 bg-pastelPurple/30 text-brandPurple font-extrabold rounded-full text-xs md:text-sm tracking-wider uppercase mb-3 border border-pastelPurple">
+          ENGLISH LEARNING GAME • 6º ANO
+        </span>
+
+        <h1 class="text-4xl md:text-6xl font-black text-slate-800 tracking-wide mb-2">
+          🌎 ENGLISH <span class="text-transparent bg-clip-text bg-gradient-to-r from-brandPink via-brandPurple to-brandBlue">ADVENTURE</span>
+        </h1>
+        <p class="text-base md:text-lg text-slate-600 font-bold max-w-md mx-auto">
+          Learn English, have fun and become an English Master! 🚀
+        </p>
+      </div>
+
+      <!-- Characters Showcase with Speech Bubble -->
+      <div class="w-full max-w-2xl bg-white/70 backdrop-blur-md rounded-3xl p-6 border-3 border-white shadow-md flex flex-col md:flex-row items-center justify-between gap-6">
+        
+        <!-- Speech Bubble -->
+        <div class="relative bg-pastelYellow/80 border-2 border-amber-300 p-4 rounded-2xl max-w-xs text-left shadow-sm">
+          <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 md:translate-x-0 md:-left-3 md:top-1/2 md:-translate-y-1/2 w-4 h-4 bg-pastelYellow border-b-2 border-l-2 border-amber-300 rotate-45"></div>
+          <p id="home-character-speech" class="text-sm font-extrabold text-slate-700 flex items-center gap-2">
+            <span>“Ready to play? Let's learn together! 🎮”</span>
+          </p>
+          <span class="text-[10px] text-slate-500 font-bold block mt-1 text-right">— Luna & Friends</span>
+        </div>
+
+        <!-- Characters Avatars -->
+        <div class="flex items-center justify-center gap-4">
+          <!-- Luna -->
+          <div class="flex flex-col items-center group cursor-pointer" onclick="speakCharacter('Luna', 'Hi! I am Luna! Let\'s master English today! 👧')">
+            <div class="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-pastelPink flex items-center justify-center text-3xl shadow-md border-2 border-white group-hover:scale-110 transition">
+              👧
+            </div>
+            <span class="text-xs font-black text-slate-700 mt-1">Luna</span>
+            <span class="text-[10px] text-brandPink font-bold">Smart Guide</span>
+          </div>
+
+          <!-- Leo -->
+          <div class="flex flex-col items-center group cursor-pointer" onclick="speakCharacter('Leo', 'Hey there! Leo here! You got this champ! 🧑')">
+            <div class="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-pastelBlue flex items-center justify-center text-3xl shadow-md border-2 border-white group-hover:scale-110 transition">
+              🧑
+            </div>
+            <span class="text-xs font-black text-slate-700 mt-1">Leo</span>
+            <span class="text-[10px] text-brandBlue font-bold">Energetic Helper</span>
+          </div>
+
+          <!-- Cookie -->
+          <div class="flex flex-col items-center group cursor-pointer" onclick="speakCharacter('Cookie', 'Meow! I\'m Cookie! Click me for luck! 🐱')">
+            <div class="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-pastelPeach flex items-center justify-center text-3xl shadow-md border-2 border-white group-hover:scale-110 transition">
+              🐱
+            </div>
+            <span class="text-xs font-black text-slate-700 mt-1">Cookie</span>
+            <span class="text-[10px] text-amber-600 font-bold">Cute Mascot</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Big Start Button -->
+      <button onclick="showScreen('screen-menu')" class="btn-3d btn-pink text-2xl font-black px-12 py-5 rounded-3xl flex items-center gap-3 tracking-wider pulse-hover shadow-lg">
+        <span>🎮</span>
+        <span>COMEÇAR</span>
+        <i class="fa-solid fa-arrow-right text-xl"></i>
+      </button>
+
+    </section>
+
+    <!-- 2. MENU DE SELEÇÃO DE MODOS DE JOGO -->
+    <section id="screen-menu" class="hidden w-full flex flex-col items-center py-4 space-y-6">
+      
+      <div class="text-center space-y-2">
+        <h2 class="text-3xl md:text-5xl font-black text-slate-800">
+          🎯 CHOOSE YOUR GAME!
+        </h2>
+        <p class="text-slate-600 font-bold text-sm md:text-base">
+          Select a mode below to test your English skills!
+        </p>
+      </div>
+
+      <!-- Character Greeting Bubble -->
+      <div class="flex items-center gap-3 bg-white/80 px-5 py-2.5 rounded-2xl border-2 border-pastelPurple shadow-sm">
+        <span class="text-2xl">🐱</span>
+        <p class="text-xs md:text-sm font-bold text-slate-700">
+          <strong class="text-brandPurple">Cookie:</strong> Pick your favorite game mode! You can win up to 3 stars! ⭐
+        </p>
+      </div>
+
+      <!-- Game Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl">
+        
+        <!-- Quiz Card -->
+        <div onclick="startGame('quiz')" class="glass-card p-6 rounded-3xl border-4 border-pastelPurple flex flex-col items-center text-center cursor-pointer hover:-translate-y-2 transition-all duration-300 group shadow-lg">
+          <div class="w-20 h-20 rounded-2xl bg-pastelPurple/40 flex items-center justify-center text-4xl mb-4 group-hover:scale-110 transition border-2 border-pastelPurple">
+            🧠
+          </div>
+          <h3 class="text-2xl font-black text-brandPurple mb-2">QUIZ</h3>
+          <p class="text-xs text-slate-600 font-semibold mb-4 leading-relaxed">
+            "Test your English knowledge!"<br>15 fun questions about vocabulary, grammar & colors!
+          </p>
+          <span class="mt-auto btn-3d btn-purple px-6 py-2.5 rounded-2xl font-black text-sm w-full">
+            PLAY QUIZ 🚀
+          </span>
+        </div>
+
+        <!-- True or False Card -->
+        <div onclick="startGame('tof')" class="glass-card p-6 rounded-3xl border-4 border-pastelBlue flex flex-col items-center text-center cursor-pointer hover:-translate-y-2 transition-all duration-300 group shadow-lg">
+          <div class="w-20 h-20 rounded-2xl bg-pastelBlue/40 flex items-center justify-center text-4xl mb-4 group-hover:scale-110 transition border-2 border-pastelBlue">
+            ✅❌
+          </div>
+          <h3 class="text-2xl font-black text-brandBlue mb-2">TRUE OR FALSE</h3>
+          <p class="text-xs text-slate-600 font-semibold mb-4 leading-relaxed">
+            "Are you ready to find out what's true?"<br>10 fast-paced English facts to evaluate!
+          </p>
+          <span class="mt-auto btn-3d btn-blue px-6 py-2.5 rounded-2xl font-black text-sm w-full">
+            PLAY TRUE/FALSE ⚡
+          </span>
+        </div>
+
+        <!-- Memory Game Card -->
+        <div onclick="startGame('memory')" class="glass-card p-6 rounded-3xl border-4 border-pastelPink flex flex-col items-center text-center cursor-pointer hover:-translate-y-2 transition-all duration-300 group shadow-lg">
+          <div class="w-20 h-20 rounded-2xl bg-pastelPink/40 flex items-center justify-center text-4xl mb-4 group-hover:scale-110 transition border-2 border-pastelPink">
+            🃏
+          </div>
+          <h3 class="text-2xl font-black text-brandPink mb-2">MEMORY GAME</h3>
+          <p class="text-xs text-slate-600 font-semibold mb-4 leading-relaxed">
+            "Find the correct pairs!"<br>Match English words with their visual emojis!
+          </p>
+          <span class="mt-auto btn-3d btn-pink px-6 py-2.5 rounded-2xl font-black text-sm w-full">
+            PLAY MEMORY 🧩
+          </span>
+        </div>
+
+      </div>
+
+      <!-- Back Button -->
+      <button onclick="showScreen('screen-home')" class="btn-3d bg-slate-200 hover:bg-slate-300 text-slate-700 font-extrabold px-8 py-3 rounded-2xl flex items-center gap-2 text-sm">
+        <i class="fa-solid fa-house"></i> Voltar à Tela Inicial
+      </button>
+
+    </section>
+
+    <!-- 3. MODO 1 — QUIZ INTERATIVO -->
+    <section id="screen-quiz" class="hidden w-full max-w-2xl flex flex-col items-center py-4 space-y-4">
+      
+      <!-- Quiz Header Info -->
+      <div class="w-full flex items-center justify-between bg-white/80 p-4 rounded-2xl border-2 border-pastelPurple">
+        <div class="flex items-center gap-2 font-black text-brandPurple">
+          <span>🧠</span>
+          <span class="text-sm md:text-base">QUIZ MODE</span>
+        </div>
+        <span id="quiz-progress" class="font-extrabold bg-pastelPurple/40 text-brandPurple px-3 py-1 rounded-full text-xs">
+          Question 1/15
+        </span>
+      </div>
+
+      <!-- Character Helper Bubble -->
+      <div class="w-full flex items-center gap-3 bg-pastelYellow/80 p-3 rounded-2xl border-2 border-amber-300">
+        <span id="quiz-char-avatar" class="text-3xl">👧</span>
+        <div class="text-xs md:text-sm font-bold text-slate-700">
+          <span id="quiz-char-name" class="font-extrabold text-brandPink">Luna:</span>
+          <span id="quiz-char-msg">"Read carefully and choose the right answer! You can do it! 💪"</span>
+        </div>
+      </div>
+
+      <!-- Question Card -->
+      <div class="glass-card w-full p-6 rounded-3xl border-4 border-pastelPurple shadow-xl text-center space-y-6">
+        <h3 id="quiz-question-text" class="text-xl md:text-2xl font-black text-slate-800 leading-snug">
+          What color is the sun? ☀️
+        </h3>
+
+        <!-- Options Grid -->
+        <div id="quiz-options-container" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <!-- Dynamically Generated Buttons -->
+        </div>
+      </div>
+
+      <!-- Hint Box Modal / Display -->
+      <div id="quiz-hint-box" class="hidden w-full bg-amber-50 border-2 border-amber-300 p-3 rounded-2xl text-center text-xs text-amber-800 font-bold">
+        💡 <span id="quiz-hint-text">Hint here!</span>
+      </div>
+
+      <!-- Navigation & Controls -->
+      <div class="w-full flex justify-between items-center pt-2">
+        <button onclick="showScreen('screen-menu')" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded-xl font-bold text-xs flex items-center gap-1">
+          <i class="fa-solid fa-arrow-left"></i> Menu
+        </button>
+      </div>
+
+    </section>
+
+    <!-- 4. MODO 2 — TRUE OR FALSE -->
+    <section id="screen-tof" class="hidden w-full max-w-2xl flex flex-col items-center py-4 space-y-4">
+      
+      <!-- TOF Header -->
+      <div class="w-full flex items-center justify-between bg-white/80 p-4 rounded-2xl border-2 border-pastelBlue">
+        <div class="flex items-center gap-2 font-black text-brandBlue">
+          <span>✅❌</span>
+          <span class="text-sm md:text-base">TRUE OR FALSE</span>
+        </div>
+        <span id="tof-progress" class="font-extrabold bg-pastelBlue/40 text-brandBlue px-3 py-1 rounded-full text-xs">
+          Question 1/10
+        </span>
+      </div>
+
+      <!-- Character Speech -->
+      <div class="w-full flex items-center gap-3 bg-pastelPeach/80 p-3 rounded-2xl border-2 border-orange-200">
+        <span id="tof-char-avatar" class="text-3xl">🧑</span>
+        <div class="text-xs md:text-sm font-bold text-slate-700">
+          <span id="tof-char-name" class="font-extrabold text-brandBlue">Leo:</span>
+          <span id="tof-char-msg">"Is this sentence right or wrong? Think fast! ⚡"</span>
+        </div>
+      </div>
+
+      <!-- Statement Card -->
+      <div class="glass-card w-full p-8 rounded-3xl border-4 border-pastelBlue shadow-xl text-center space-y-6">
+        <span class="text-xs uppercase font-extrabold tracking-widest text-brandBlue bg-pastelBlue/30 px-3 py-1 rounded-full">
+          Statement
+        </span>
+        <h3 id="tof-statement-text" class="text-2xl md:text-3xl font-black text-slate-800 my-4">
+          “The word ‘cat’ means ‘gato’.”
+        </h3>
+
+        <!-- True or False Big Buttons -->
+        <div class="grid grid-cols-2 gap-4 pt-2">
+          <button onclick="handleTofAnswer(true)" class="btn-3d btn-green text-xl font-black py-5 rounded-2xl flex items-center justify-center gap-2">
+            <span>✅</span>
+            <span>TRUE</span>
+          </button>
+          <button onclick="handleTofAnswer(false)" class="btn-3d btn-pink text-xl font-black py-5 rounded-2xl flex items-center justify-center gap-2">
+            <span>❌</span>
+            <span>FALSE</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Hint Box -->
+      <div id="tof-hint-box" class="hidden w-full bg-amber-50 border-2 border-amber-300 p-3 rounded-2xl text-center text-xs text-amber-800 font-bold">
+        💡 <span id="tof-hint-text">Hint here!</span>
+      </div>
+
+      <div class="w-full flex justify-between items-center pt-2">
+        <button onclick="showScreen('screen-menu')" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded-xl font-bold text-xs flex items-center gap-1">
+          <i class="fa-solid fa-arrow-left"></i> Menu
+        </button>
+      </div>
+
+    </section>
+
+    <!-- 5. MODO 3 — MEMORY GAME -->
+    <section id="screen-memory" class="hidden w-full max-w-3xl flex flex-col items-center py-4 space-y-4">
+      
+      <!-- Memory Stats Bar -->
+      <div class="w-full flex items-center justify-between bg-white/80 p-4 rounded-2xl border-2 border-pastelPink">
+        <div class="flex items-center gap-2 font-black text-brandPink">
+          <span>🃏</span>
+          <span class="text-sm md:text-base">MEMORY GAME</span>
+        </div>
+        <div class="flex gap-4 text-xs md:text-sm font-black">
+          <span class="bg-pastelPink/40 text-brandPink px-3 py-1 rounded-full">
+            Pairs: <span id="memory-pairs">0/6</span>
+          </span>
+          <span class="bg-slate-100 text-slate-700 px-3 py-1 rounded-full">
+            Attempts: <span id="memory-attempts">0</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- Character Helper -->
+      <div class="w-full flex items-center gap-3 bg-pastelGreen/30 p-3 rounded-2xl border-2 border-pastelGreen">
+        <span class="text-3xl">🐱</span>
+        <div class="text-xs md:text-sm font-bold text-slate-700">
+          <span class="font-extrabold text-brandGreen">Cookie:</span>
+          <span>"Match the English words with their emoji cards! Meow! 🐾"</span>
+        </div>
+      </div>
+
+      <!-- Memory Cards Grid (12 Cards -> 6 Pairs) -->
+      <div id="memory-grid" class="grid grid-cols-3 sm:grid-cols-4 gap-3 md:gap-4 w-full">
+        <!-- Cards generated dynamically via JavaScript -->
+      </div>
+
+      <div class="w-full flex justify-between items-center pt-2">
+        <button onclick="showScreen('screen-menu')" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded-xl font-bold text-xs flex items-center gap-1">
+          <i class="fa-solid fa-arrow-left"></i> Menu
+        </button>
+      </div>
+
+    </section>
+
+    <!-- 6. TELA DE FINALIZAÇÃO / VICTORY SCREEN -->
+    <section id="screen-end" class="hidden w-full max-w-xl flex flex-col items-center py-6 text-center space-y-6">
+      
+      <div class="glass-card w-full p-8 rounded-3xl border-4 border-pastelPurple shadow-2xl space-y-6 relative overflow-hidden">
+        
+        <div class="text-5xl animate-bounce">🎉</div>
+        
+        <h2 class="text-3xl md:text-5xl font-black text-slate-800">
+          YOU DID IT!
+        </h2>
+
+        <!-- Stars Display -->
+        <div class="flex items-center justify-center gap-2 text-4xl md:text-5xl py-2" id="end-stars-container">
+          <span class="text-amber-400">⭐</span>
+          <span class="text-amber-400">⭐</span>
+          <span class="text-amber-400">⭐</span>
+        </div>
+
+        <!-- Final Score Box -->
+        <div class="bg-pastelPurple/20 p-4 rounded-2xl border-2 border-pastelPurple">
+          <p class="text-xs text-slate-500 uppercase font-black tracking-wider">Your Final Score</p>
+          <p class="text-3xl md:text-4xl font-black text-brandPurple mt-1" id="end-score-display">
+            120 Points!
+          </p>
+        </div>
+
+        <!-- Character Congratulating Message -->
+        <div class="flex items-center gap-3 bg-pastelYellow/80 p-4 rounded-2xl border-2 border-amber-300 text-left">
+          <span id="end-char-avatar" class="text-4xl">👧</span>
+          <div>
+            <p id="end-char-name" class="font-extrabold text-brandPink text-sm">Luna:</p>
+            <p id="end-char-msg" class="text-xs md:text-sm font-bold text-slate-700">
+              “Amazing job! You are an English Master! 🏆”
+            </p>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row gap-3 pt-2">
+          <button onclick="restartCurrentGame()" class="btn-3d btn-pink flex-1 py-3 rounded-2xl font-black text-sm flex items-center justify-center gap-2">
+            <span>🔄</span> PLAY AGAIN
+          </button>
+          <button onclick="showScreen('screen-menu')" class="btn-3d btn-purple flex-1 py-3 rounded-2xl font-black text-sm flex items-center justify-center gap-2">
+            <span>🎮</span> ANOTHER GAME
+          </button>
+        </div>
+
+      </div>
+
+      <button onclick="showScreen('screen-home')" class="btn-3d bg-slate-200 hover:bg-slate-300 text-slate-700 font-extrabold px-6 py-2.5 rounded-2xl flex items-center gap-2 text-xs">
+        <i class="fa-solid fa-house"></i> HOME
+      </button>
+
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="w-full bg-white/60 border-t border-pastelPurple/30 py-3 text-center text-xs font-bold text-slate-500 mt-auto">
+    <p>English Adventure 🌎 • Educational Game for 6th Grade (11-12 years)</p>
+  </footer>
+
+  <!-- GAME ENGINE JAVASCRIPT LOGIC -->
+  <script>
+    /* ==========================================================================
+       ENGLISH ADVENTURE GAME - JAVASCRIPT ENGINE
+       ========================================================================== */
+
+    // --- GAME STATE VARIABLES ---
+    let score = 0;
+    let hearts = 3;
+    let hintsLeft = 3;
+    let currentMode = ''; // 'quiz', 'tof', 'memory'
+    
+    // Quiz State
+    let quizQuestions = [];
+    let currentQuizIndex = 0;
+    
+    // True/False State
+    let tofQuestions = [];
+    let currentTofIndex = 0;
+
+    // Memory Game State
+    let memoryCards = [];
+    let flippedCards = [];
+    let matchedPairs = 0;
+    let memoryAttempts = 0;
+
+    // --- QUESTIONS DATASET (6th Grade Level) ---
+    const QUIZ_BANK = [
+      {
+        question: "What color is the sun? ☀️",
+        options: ["Blue", "Yellow", "Green", "Purple"],
+        answer: 1,
+        hint: "It's bright and shines in the sky during daytime!"
+      },
+      {
+        question: "How do you say 'cachorro' in English? 🐶",
+        options: ["Cat", "Bird", "Dog", "Fish"],
+        answer: 2,
+        hint: "It barks and says 'Woof'!"
+      },
+      {
+        question: "What number comes after 'nine'? 🔢",
+        options: ["Eight", "Ten", "Seven", "Eleven"],
+        answer: 1,
+        hint: "Count: 8, 9, ...!"
+      },
+      {
+        question: "Which of these is a school object? 🎒",
+        options: ["Pencil", "Apple", "Dog", "Monday"],
+        answer: 0,
+        hint: "You use it to write or draw!"
+      },
+      {
+        question: "How do you say 'Bom dia' in English? 🌅",
+        options: ["Good night", "Good morning", "Good afternoon", "Goodbye"],
+        answer: 1,
+        hint: "You say this when you wake up in the morning!"
+      },
+      {
+        question: "What is the English word for 'maçã'? 🍎",
+        options: ["Banana", "Orange", "Apple", "Grape"],
+        answer: 2,
+        hint: "It's red, juicy, and sweet!"
+      },
+      {
+        question: "Which day comes after Monday? 📅",
+        options: ["Sunday", "Tuesday", "Wednesday", "Friday"],
+        answer: 1,
+        hint: "It starts with the letter 'T'!"
+      },
+      {
+        question: "What is the pronoun for 'ela' in English? 👧",
+        options: ["He", "She", "They", "It"],
+        answer: 1,
+        hint: "'He' is for boys, '...' is for girls!"
+      },
+      {
+        question: "What is the plural of 'child'? 👦👧",
+        options: ["Childs", "Children", "Childrens", "Childes"],
+        answer: 1,
+        hint: "It's an irregular plural word!"
+      },
+      {
+        question: "Which verb means 'gostar'? ❤️",
+        options: ["Play", "Like", "Run", "Eat"],
+        answer: 1,
+        hint: "'I ___ ice cream!'"
+      },
+      {
+        question: "What color do you get if you mix Blue + Yellow? 🎨",
+        options: ["Red", "Green", "Orange", "Pink"],
+        answer: 1,
+        hint: "Think about grass or leaves!"
+      },
+      {
+        question: "How do you say 'mãe' in English? 👩",
+        options: ["Father", "Mother", "Brother", "Sister"],
+        answer: 1,
+        hint: "Also called 'Mom'!"
+      },
+      {
+        question: "What is the month of Christmas? 🎄",
+        options: ["November", "January", "December", "July"],
+        answer: 2,
+        hint: "The last month of the year!"
+      },
+      {
+        question: "What does 'book' mean in Portuguese? 📚",
+        options: ["Caderno", "Livro", "Caneta", "Mesa"],
+        answer: 1,
+        hint: "You read stories inside it!"
+      },
+      {
+        question: "Complete: 'I ___ a student.' 🎓",
+        options: ["is", "are", "am", "be"],
+        answer: 2,
+        hint: "Verb 'to be' for 'I'!"
+      }
+    ];
+
+    const TOF_BANK = [
+      { statement: "The word 'cat' means 'gato'. 🐱", answer: true, hint: "Cats say meow!" },
+      { statement: "'Blue' means 'vermelho'. 🔴", answer: false, hint: "Blue is the color of the sky!" },
+      { statement: "'Sunday' is a day of the week. 🗓️", answer: true, hint: "It's the weekend!" },
+      { statement: "The number '12' in English is 'twenty'. 🔢", answer: false, hint: "12 is 'twelve'." },
+      { statement: "'Teacher' means 'professor' or 'professora'. 👩‍🏫", answer: true, hint: "Teachers teach at school!" },
+      { statement: "'Elephant' is a small animal. 🐘", answer: false, hint: "Elephants are huge!" },
+      { statement: "Water is 'água' in Portuguese. 💧", answer: true, hint: "You drink water!" },
+      { statement: "'Goodbye' means 'Olá'. 👋", answer: false, hint: "'Goodbye' is when you leave!" },
+      { statement: "An 'apple' is a fruit. 🍎", answer: true, hint: "Apples grow on trees!" },
+      { statement: "The verb 'eat' means 'beber'. 🍔", answer: false, hint: "'Eat' is for food, 'drink' is for water!" }
+    ];
+
+    const MEMORY_PAIRS = [
+      { name: "DOG", icon: "🐶" },
+      { name: "CAT", icon: "🐱" },
+      { name: "SUN", icon: "☀️" },
+      { name: "BOOK", icon: "📚" },
+      { name: "CAR", icon: "🚗" },
+      { name: "TREE", icon: "🌳" }
+    ];
+
+    // --- CHARACTER SPEECHES ---
+    const CHAR_SPEECHES = {
+      correct: [
+        { name: "Luna 👧", msg: "🎉 Correct! Amazing job!" },
+        { name: "Leo 🧑", msg: "⭐ Super cool! Keep going!" },
+        { name: "Cookie 🐱", msg: "Meow! Perfect answer! 🐾" }
+      ],
+      wrong: [
+        { name: "Luna 👧", msg: "💡 Not quite! Try the next one!" },
+        { name: "Leo 🧑", msg: "💪 Don't give up! You can do it!" },
+        { name: "Cookie 🐱", msg: "Oops! Keep focused! 🐾" }
+      ]
+    };
+
+    // --- SCREEN MANAGEMENT ---
+    function showScreen(screenId) {
+      const screens = ['screen-home', 'screen-menu', 'screen-quiz', 'screen-tof', 'screen-memory', 'screen-end'];
+      screens.forEach(s => {
+        document.getElementById(s).classList.add('hidden');
+      });
+      document.getElementById(screenId).classList.remove('hidden');
+
+      // Toggle top stats visibility
+      const gameStats = document.getElementById('game-stats');
+      if (['screen-quiz', 'screen-tof', 'screen-memory'].includes(screenId)) {
+        gameStats.classList.remove('hidden');
+      } else {
+        gameStats.classList.add('hidden');
+      }
+    }
+
+    // --- INITIALIZE & START GAMES ---
+    function startGame(mode) {
+      currentMode = mode;
+      score = 0;
+      hearts = 3;
+      hintsLeft = 3;
+      updateStatsUI();
+
+      if (mode === 'quiz') {
+        quizQuestions = shuffleArray([...QUIZ_BANK]);
+        currentQuizIndex = 0;
+        showScreen('screen-quiz');
+        renderQuizQuestion();
+      } else if (mode === 'tof') {
+        tofQuestions = shuffleArray([...TOF_BANK]);
+        currentTofIndex = 0;
+        showScreen('screen-tof');
+        renderTofQuestion();
+      } else if (mode === 'memory') {
+        initMemoryGame();
+        showScreen('screen-memory');
+      }
+    }
+
+    function updateStatsUI() {
+      document.getElementById('score-display').innerText = score;
+      document.getElementById('hints-count').innerText = hintsLeft;
+      
+      // Update Hearts
+      const heartsContainer = document.getElementById('hearts-container');
+      heartsContainer.innerHTML = '';
+      for (let i = 0; i < 3; i++) {
+        if (i < hearts) {
+          heartsContainer.innerHTML += `<span class="text-red-500 animate-bounce">❤️</span>`;
+        } else {
+          heartsContainer.innerHTML += `<span class="text-slate-300">🖤</span>`;
+        }
+      }
+    }
+
+    function loseHeart() {
+      hearts--;
+      updateStatsUI();
+      if (hearts <= 0) {
+        setTimeout(() => {
+          showGameOverModal();
+        }, 600);
+      }
+    }
+
+    function showGameOverModal() {
+      showToast("Don't give up! Try again! 💪");
+      startGame(currentMode);
+    }
+
+    function useHint() {
+      if (hintsLeft <= 0) {
+        showToast("No hints remaining! You can do it on your own! 💪");
+        return;
+      }
+
+      hintsLeft--;
+      updateStatsUI();
+
+      if (currentMode === 'quiz') {
+        const hintBox = document.getElementById('quiz-hint-box');
+        document.getElementById('quiz-hint-text').innerText = quizQuestions[currentQuizIndex].hint;
+        hintBox.classList.remove('hidden');
+      } else if (currentMode === 'tof') {
+        const hintBox = document.getElementById('tof-hint-box');
+        document.getElementById('tof-hint-text').innerText = tofQuestions[currentTofIndex].hint;
+        hintBox.classList.remove('hidden');
+      } else if (currentMode === 'memory') {
+        showToast("Hint: Try remembering where matching pairs were revealed! 💡");
+      }
+    }
+
+    // --- 1. QUIZ LOGIC ---
+    function renderQuizQuestion() {
+      document.getElementById('quiz-hint-box').classList.add('hidden');
+      const q = quizQuestions[currentQuizIndex];
+      document.getElementById('quiz-progress').innerText = `Question ${currentQuizIndex + 1}/${quizQuestions.length}`;
+      document.getElementById('quiz-question-text').innerText = q.question;
+
+      const container = document.getElementById('quiz-options-container');
+      container.innerHTML = '';
+
+      q.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'btn-3d bg-white hover:bg-purple-50 text-slate-700 font-extrabold p-4 rounded-2xl border-2 border-pastelPurple text-base text-left flex items-center justify-between transition';
+        btn.innerHTML = `
+          <span>${String.fromCharCode(65 + idx)}) ${opt}</span>
+          <i class="fa-regular fa-circle text-pastelPurple"></i>
+        `;
+        btn.onclick = () => handleQuizAnswer(idx, btn);
+        container.appendChild(btn);
+      });
+    }
+
+    function handleQuizAnswer(selectedIndex, btnElement) {
+      const q = quizQuestions[currentQuizIndex];
+      const buttons = document.querySelectorAll('#quiz-options-container button');
+      buttons.forEach(b => b.disabled = true); // Prevent multiple clicks
+
+      const randomChar = CHAR_SPEECHES.correct[Math.floor(Math.random() * CHAR_SPEECHES.correct.length)];
+
+      if (selectedIndex === q.answer) {
+        // Correct
+        btnElement.classList.remove('bg-white');
+        btnElement.classList.add('bg-green-100', 'border-brandGreen', 'text-green-800');
+        score += 10;
+        updateStatsUI();
+        triggerConfetti();
+
+        document.getElementById('quiz-char-avatar').innerText = randomChar.name.split(' ')[1];
+        document.getElementById('quiz-char-name').innerText = randomChar.name.split(' ')[0] + ":";
+        document.getElementById('quiz-char-msg').innerText = randomChar.msg;
+      } else {
+        // Wrong
+        btnElement.classList.remove('bg-white');
+        btnElement.classList.add('bg-red-100', 'border-red-400', 'text-red-800');
+        buttons[q.answer].classList.add('bg-green-100', 'border-brandGreen', 'text-green-800');
+        
+        loseHeart();
+
+        const wrongChar = CHAR_SPEECHES.wrong[Math.floor(Math.random() * CHAR_SPEECHES.wrong.length)];
+        document.getElementById('quiz-char-avatar').innerText = wrongChar.name.split(' ')[1];
+        document.getElementById('quiz-char-name').innerText = wrongChar.name.split(' ')[0] + ":";
+        document.getElementById('quiz-char-msg').innerText = wrongChar.msg;
+      }
+
+      setTimeout(() => {
+        if (hearts > 0) {
+          currentQuizIndex++;
+          if (currentQuizIndex < quizQuestions.length) {
+            renderQuizQuestion();
+          } else {
+            finishGame();
+          }
+        }
+      }, 1500);
+    }
+
+    // --- 2. TRUE OR FALSE LOGIC ---
+    function renderTofQuestion() {
+      document.getElementById('tof-hint-box').classList.add('hidden');
+      const q = tofQuestions[currentTofIndex];
+      document.getElementById('tof-progress').innerText = `Question ${currentTofIndex + 1}/${tofQuestions.length}`;
+      document.getElementById('tof-statement-text').innerText = `“${q.statement}”`;
+    }
+
+    function handleTofAnswer(userChoice) {
+      const q = tofQuestions[currentTofIndex];
+      const randomChar = CHAR_SPEECHES.correct[Math.floor(Math.random() * CHAR_SPEECHES.correct.length)];
+
+      if (userChoice === q.answer) {
+        score += 10;
+        updateStatsUI();
+        triggerConfetti();
+
+        document.getElementById('tof-char-avatar').innerText = randomChar.name.split(' ')[1];
+        document.getElementById('tof-char-name').innerText = randomChar.name.split(' ')[0] + ":";
+        document.getElementById('tof-char-msg').innerText = randomChar.msg;
+      } else {
+        loseHeart();
+        const wrongChar = CHAR_SPEECHES.wrong[Math.floor(Math.random() * CHAR_SPEECHES.wrong.length)];
+        document.getElementById('tof-char-avatar').innerText = wrongChar.name.split(' ')[1];
+        document.getElementById('tof-char-name').innerText = wrongChar.name.split(' ')[0] + ":";
+        document.getElementById('tof-char-msg').innerText = wrongChar.msg;
+      }
+
+      setTimeout(() => {
+        if (hearts > 0) {
+          currentTofIndex++;
+          if (currentTofIndex < tofQuestions.length) {
+            renderTofQuestion();
+          } else {
+            finishGame();
+          }
+        }
+      }, 1300);
+    }
+
+    // --- 3. MEMORY GAME LOGIC ---
+    function initMemoryGame() {
+      matchedPairs = 0;
+      memoryAttempts = 0;
+      flippedCards = [];
+
+      document.getElementById('memory-pairs').innerText = `0/${MEMORY_PAIRS.length}`;
+      document.getElementById('memory-attempts').innerText = `0`;
+
+      // Create Deck: Pairs of Word card & Emoji card
+      let deck = [];
+      MEMORY_PAIRS.forEach((item, index) => {
+        deck.push({ id: index, type: 'text', content: item.name, pairId: index });
+        deck.push({ id: index, type: 'icon', content: item.icon, pairId: index });
+      });
+
+      deck = shuffleArray(deck);
+      const grid = document.getElementById('memory-grid');
+      grid.innerHTML = '';
+
+      deck.forEach((card, index) => {
+        const cardEl = document.createElement('div');
+        cardEl.className = 'perspective-1000 h-28 cursor-pointer';
+        cardEl.innerHTML = `
+          <div class="card-inner w-full h-full transform-style-3d transition-transform duration-500 relative rounded-2xl shadow-md" data-index="${index}" data-pair="${card.pairId}">
+            <!-- Front (Cover) -->
+            <div class="absolute inset-0 bg-gradient-to-tr from-brandPink to-brandPurple rounded-2xl border-2 border-white flex items-center justify-center text-3xl text-white font-black backface-hidden">
+              ❓
+            </div>
+            <!-- Back (Content) -->
+            <div class="absolute inset-0 bg-white rounded-2xl border-4 border-pastelPink flex items-center justify-center text-center font-black text-slate-800 text-lg md:text-xl p-2 rotate-y-180 backface-hidden shadow-inner">
+              ${card.content}
+            </div>
+          </div>
+        `;
+
+        cardEl.onclick = () => flipMemoryCard(cardEl.querySelector('.card-inner'), card);
+        grid.appendChild(cardEl);
+      });
+    }
+
+    function flipMemoryCard(cardInner, cardData) {
+      if (flippedCards.length >= 2 || cardInner.classList.contains('rotate-y-180') || cardInner.classList.contains('matched')) {
+        return;
+      }
+
+      cardInner.classList.add('rotate-y-180');
+      flippedCards.push({ element: cardInner, data: cardData });
+
+      if (flippedCards.length === 2) {
+        memoryAttempts++;
+        document.getElementById('memory-attempts').innerText = memoryAttempts;
+
+        const [card1, card2] = flippedCards;
+
+        if (card1.data.pairId === card2.data.pairId) {
+          // MATCH!
+          score += 20;
+          matchedPairs++;
+          updateStatsUI();
+          triggerConfetti();
+
+          document.getElementById('memory-pairs').innerText = `${matchedPairs}/${MEMORY_PAIRS.length}`;
+
+          card1.element.classList.add('matched', 'border-brandGreen');
+          card2.element.classList.add('matched', 'border-brandGreen');
+          flippedCards = [];
+
+          if (matchedPairs === MEMORY_PAIRS.length) {
+            setTimeout(finishGame, 1000);
+          }
+        } else {
+          // NO MATCH
+          setTimeout(() => {
+            card1.element.classList.remove('rotate-y-180');
+            card2.element.classList.remove('rotate-y-180');
+            flippedCards = [];
+          }, 1000);
+        }
+      }
+    }
+
+    // --- GAME FINISH & REWARDS ---
+    function finishGame() {
+      showScreen('screen-end');
+      triggerConfetti();
+
+      document.getElementById('end-score-display').innerText = `${score} Points!`;
+
+      // Stars Rating Logic
+      const starsContainer = document.getElementById('end-stars-container');
+      starsContainer.innerHTML = '';
+
+      let starsCount = 1;
+      if (score >= 100) starsCount = 3;
+      else if (score >= 50) starsCount = 2;
+
+      for (let i = 0; i < 3; i++) {
+        if (i < starsCount) {
+          starsContainer.innerHTML += `<span class="text-amber-400 animate-bounce">⭐</span>`;
+        } else {
+          starsContainer.innerHTML += `<span class="text-slate-300">⭐</span>`;
+        }
+      }
+
+      // Final Character Speech
+      if (starsCount === 3) {
+        document.getElementById('end-char-avatar').innerText = '👧';
+        document.getElementById('end-char-name').innerText = 'Luna:';
+        document.getElementById('end-char-msg').innerText = '“WOAH! PERFECT SCORE! You are a true English Master! 🏆”';
+      } else {
+        document.getElementById('end-char-avatar').innerText = '🧑';
+        document.getElementById('end-char-name').innerText = 'Leo:';
+        document.getElementById('end-char-msg').innerText = '“Awesome job! Practice more to get all 3 stars! ⭐”';
+      }
+    }
+
+    function restartCurrentGame() {
+      startGame(currentMode);
+    }
+
+    // --- UTILITIES ---
+    function shuffleArray(array) {
+      return array.sort(() => Math.random() - 0.5);
+    }
+
+    function triggerConfetti() {
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 50,
+          spread: 60,
+          origin: { y: 0.7 }
+        });
+      }
+    }
+
+    function speakCharacter(name, msg) {
+      const bubble = document.getElementById('home-character-speech');
+      bubble.innerHTML = `<span>“${msg}”</span>`;
+    }
+
+    // --- CODE VIEWER DRAWER CODE ---
+    const CODE_FILES = {
+      html: `<!-- INDEX.HTML -->
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -13,6 +1081,96 @@
   <main id="app">
     <!-- Game screens rendered dynamically -->
   </main>
-  <script src="script.js"></script>
+  <script src="script.js"><\/script>
+</body>
+</html>`,
+      css: `/* STYLE.CSS */
+body {
+  font-family: 'Nunito', sans-serif;
+  background: linear-gradient(135deg, #f3e8ff, #e0f2fe, #fce7f3);
+}
+.btn-pink { background-color: #FF7096; color: white; }
+.btn-purple { background-color: #9370DB; color: white; }
+.btn-blue { background-color: #4A90E2; color: white; }
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border-radius: 1.5rem;
+}`,
+      js: `// SCRIPT.JS
+let score = 0;
+let hearts = 3;
+
+function startGame(mode) {
+  score = 0;
+  hearts = 3;
+  console.log("Game started in mode:", mode);
+}`
+    };
+
+    let activeTab = 'html';
+
+    function toggleCodeViewer() {
+      const modal = document.getElementById('code-viewer-modal');
+      modal.classList.toggle('hidden');
+      if (!modal.classList.contains('hidden')) {
+        switchTab(activeTab);
+      }
+    }
+
+    function switchTab(tab) {
+      activeTab = tab;
+      document.getElementById('tab-html').className = tab === 'html' ? 'px-3 py-1.5 rounded-lg text-amber-400 font-bold bg-slate-800 shadow' : 'px-3 py-1.5 rounded-lg text-slate-400 font-bold hover:text-white';
+      document.getElementById('tab-css').className = tab === 'css' ? 'px-3 py-1.5 rounded-lg text-cyan-400 font-bold bg-slate-800 shadow' : 'px-3 py-1.5 rounded-lg text-slate-400 font-bold hover:text-white';
+      document.getElementById('tab-js').className = tab === 'js' ? 'px-3 py-1.5 rounded-lg text-green-400 font-bold bg-slate-800 shadow' : 'px-3 py-1.5 rounded-lg text-slate-400 font-bold hover:text-white';
+
+      document.getElementById('code-content').innerText = CODE_FILES[tab];
+      document.getElementById('current-file-label').innerText = `Exibindo ${tab === 'html' ? 'index.html' : tab === 'css' ? 'style.css' : 'script.js'}`;
+    }
+
+    function showToast(message) {
+      let toast = document.getElementById('custom-toast');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'custom-toast';
+        toast.className = 'fixed bottom-5 right-5 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-2xl font-bold text-sm z-50 transition-all duration-300 transform translate-y-10 opacity-0 flex items-center gap-2 border-2 border-brandPurple pointer-events-none';
+        document.body.appendChild(toast);
+      }
+      toast.innerText = message;
+      toast.classList.remove('translate-y-10', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      
+      clearTimeout(window.toastTimeout);
+      window.toastTimeout = setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-10', 'opacity-0');
+      }, 3000);
+    }
+
+    function copyCode() {
+      const textToCopy = CODE_FILES[activeTab];
+      try {
+        const textarea = document.createElement('textarea');
+        textarea.value = textToCopy;
+        textarea.style.position = 'fixed';
+        textarea.style.left = '-9999px';
+        textarea.style.top = '-9999px';
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+        
+        const successful = document.execCommand('copy');
+        document.body.removeChild(textarea);
+        
+        if (successful) {
+          showToast(`Código de ${activeTab.toUpperCase()} copiado com sucesso! 📋`);
+        } else {
+          showToast('Não foi possível copiar o código.');
+        }
+      } catch (err) {
+        showToast('Não foi possível copiar o código.');
+      }
+    }
+  </script>
 </body>
 </html>
